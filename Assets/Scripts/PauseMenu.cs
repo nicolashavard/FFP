@@ -2,12 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour {
 
     public string mainMenuLevel;
 
     public GameObject pauseMenu;
+
+    private bool pausedGame;
+
+    public Button muteButton;
+    public Sprite soundOn;
+    public Sprite soundOff;
+
+    private void Start()
+    {
+        pausedGame = false;
+    }
 
     public void PauseGame()
     {
@@ -32,5 +44,21 @@ public class PauseMenu : MonoBehaviour {
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuLevel);
+    }
+
+    public void MuteGame()
+    {
+        if (pausedGame)
+        {
+            AudioListener.volume = 1;
+            pausedGame = !pausedGame;
+            muteButton.image.sprite = soundOn;
+        }
+        else
+        {
+            AudioListener.volume = 0;
+            pausedGame = !pausedGame;
+            muteButton.image.sprite = soundOff;
+        }
     }
 }
